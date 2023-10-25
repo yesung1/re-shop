@@ -14,6 +14,7 @@ function ProductList() {
           </div>
         </Link>
       ))}
+      <Link to={`/Cart`}>카트</Link>
     </div>
   );
 }
