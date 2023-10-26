@@ -10,7 +10,7 @@ function Cart() {
 
   useEffect(() => {
     setTotal(calculateTotal());
-  }, [cartItems]);
+  }, [cartItems, calculateTotal]);
 
   function applyCoupon() {
     const coupon = coupons.find((c) => c.code === couponCode);

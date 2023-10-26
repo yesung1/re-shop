@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 export const CartContext = React.createContext();
 
@@ -38,12 +38,12 @@ export function CartProvider({ children }) {
     setCartItems((prev) => prev.filter((item) => item.id !== product.id));
   }
 
-  function calculateTotal() {
+  const calculateTotal = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
-  }
+  }, [cartItems]);
 
   return (
     <CartContext.Provider
