@@ -1,12 +1,46 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext";
 import coupons from "../coupons.json";
+import {
+  Button,
+  TextField,
+  Typography,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+  card: {
+    display: "flex",
+    marginBottom: theme.spacing(2),
+  },
+  cardMedia: {
+    width: 100,
+  },
+  cardContent: {
+    flex: 1,
+  },
+  quantityInput: {
+    width: 80,
+  },
+  couponInput: {
+    marginRight: theme.spacing(2),
+  },
+}));
 
 function Cart() {
   const { cartItems, removeFromCart, changeQuantity, calculateTotal } =
     useContext(CartContext);
   const [couponCode, setCouponCode] = useState("");
   const [total, setTotal] = useState(calculateTotal());
+  const classes = useStyles();
 
   useEffect(() => {
     setTotal(calculateTotal());
@@ -26,31 +60,61 @@ function Cart() {
   }
 
   return (
-    <div>
-      <h2>Your Cart</h2>
+    <div className={classes.root}>
+      <Typography variant="h2">Your Shopping Cart</Typography>
       {cartItems.map((item) => (
-        <div key={item.id}>
-          <img src={item.image} alt={item.name} />
-          <h3>{item.name}</h3>
-          <p>{item.price}</p>
-          <input
-            type="number"
-            min="1"
-            value={item.quantity}
-            onChange={(e) => changeQuantity(item.id, e.target.value)}
+        <Card key={item.id} className={classes.card}>
+          <CardMedia
+            component="img"
+            image={item.image}
+            alt={item.name}
+            className={classes.cardMedia}
           />
-          <button onClick={() => removeFromCart(item)}>Remove</button>
-        </div>
+          <CardContent className={classes.cardContent}>
+            <Typography variant="h3">{item.name}</Typography>
+            <Typography variant="subtitle1">${item.price}</Typography>
+            <TextField
+              type="number"
+              inputProps={{ min: 1 }}
+              value={item.quantity}
+              onChange={(e) => changeQuantity(item.id, e.target.value)}
+              label="Quantity"
+              variant="outlined"
+              margin="dense"
+              className={classes.quantityInput}
+            />
+          </CardContent>
+          <CardActions>
+            <Button
+              onClick={() => removeFromCart(item)}
+              color="secondary"
+              variant="contained"
+            >
+              Remove
+            </Button>
+          </CardActions>
+        </Card>
       ))}
-      <br />
-      <input
-        type="text"
-        value={couponCode}
-        onChange={(e) => setCouponCode(e.target.value)}
-        placeholder="Enter coupon code"
-      />
-      <button onClick={applyCoupon}>Apply</button>
-      <h3>Total: ${total.toFixed(2)}</h3>
+      <Grid container alignItems="center" spacing={2}>
+        <Grid item>
+          <TextField
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+            label="Enter coupon code"
+            variant="outlined"
+            margin="dense"
+            className={classes.couponInput}
+          />
+        </Grid>
+        <Grid item>
+          <Button onClick={applyCoupon} color="primary" variant="contained">
+            Apply
+          </Button>
+        </Grid>
+      </Grid>
+      <Typography variant="h3" style={{ marginTop: "1rem" }}>
+        Total: ${total.toFixed(2)}
+      </Typography>
     </div>
   );
 }
