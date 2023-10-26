@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext";
-import coupons from "../coupons.json";
 import {
   Button,
   TextField,
@@ -47,6 +46,7 @@ function Cart() {
   }, [cartItems, calculateTotal]);
 
   function applyCoupon() {
+    const coupons = JSON.parse(localStorage.getItem("coupons")); // 로컬 스토리지에서 쿠폰 데이터를 불러옵니다.
     const coupon = coupons.find((c) => c.code === couponCode);
 
     if (coupon) {
