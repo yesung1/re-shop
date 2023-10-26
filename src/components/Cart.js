@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import { CartContext } from "../CartContext";
 
 function Cart() {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, changeQuantity, calculateTotal } =
+    useContext(CartContext);
+  const total = calculateTotal();
 
   return (
     <div>
@@ -12,8 +14,14 @@ function Cart() {
           <img src={item.image} alt={item.name} />
           <h3>{item.name}</h3>
           <p>{item.price}</p>
-          <p>Quantity: {item.quantity}</p>
+          <input
+            type="number"
+            min="1"
+            value={item.quantity}
+            onChange={(e) => changeQuantity(item.id, e.target.value)}
+          />
           <button onClick={() => removeFromCart(item)}>Remove</button>
+          <h3>Total: ${total.toFixed(2)}</h3>
         </div>
       ))}
     </div>

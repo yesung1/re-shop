@@ -26,12 +26,35 @@ export function CartProvider({ children }) {
     });
   }
 
+  function changeQuantity(id, newQuantity) {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  }
+
   function removeFromCart(product) {
     setCartItems((prev) => prev.filter((item) => item.id !== product.id));
   }
 
+  function calculateTotal() {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  }
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        changeQuantity,
+        calculateTotal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
