@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function ProductList() {
   return (
-    <div>
+    <div role="list">
       {products.map((product) => (
         <Link key={product.id} to={`/product/${product.id}`}>
           <div key={product.id}>
