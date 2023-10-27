@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CartContext } from "../CartContext";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   TextField,
@@ -11,6 +11,7 @@ import {
   CardActions,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { removeFromCart, changeQuantity } from "../actions/cartActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,11 +36,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Cart() {
-  const { cartItems, removeFromCart, changeQuantity, calculateTotal } =
-    useContext(CartContext);
+  const { cartItems } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const [couponCode, setCouponCode] = useState("");
-  const [total, setTotal] = useState(calculateTotal());
+  const [total, setTotal] = useState(0);
   const classes = useStyles();
+
+  const calculateTotal = useCallback(() => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  }, [cartItems]);
 
   useEffect(() => {
     setTotal(calculateTotal());
@@ -77,7 +85,9 @@ function Cart() {
               type="number"
               inputProps={{ min: 1 }}
               value={item.quantity}
-              onChange={(e) => changeQuantity(item.id, e.target.value)}
+              onChange={(e) =>
+                dispatch(changeQuantity(item.id, e.target.value))
+              }
               label="Quantity"
               variant="outlined"
               margin="dense"
@@ -86,7 +96,7 @@ function Cart() {
           </CardContent>
           <CardActions>
             <Button
-              onClick={() => removeFromCart(item)}
+              onClick={() => dispatch(removeFromCart(item))}
               color="secondary"
               variant="contained"
             >

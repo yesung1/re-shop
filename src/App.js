@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
-import { CartProvider } from "./CartContext";
 import coupons from "./coupons.json";
+import { Provider } from "react-redux";
+import store from "./store";
 
 function App() {
   useEffect(() => {
@@ -12,7 +13,7 @@ function App() {
   }, []);
 
   return (
-    <CartProvider>
+    <Provider store={store}>
       <Router>
         <div className="App">
           <Routes>
@@ -22,7 +23,7 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </CartProvider>
+    </Provider>
   );
 }
 
