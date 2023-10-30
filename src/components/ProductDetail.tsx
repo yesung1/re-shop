@@ -4,10 +4,19 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../actions/cartActions";
 import products from "../products.json"; // 상품 목록 가져오기
 
-function ProductDetail() {
-  const { id } = useParams();
+interface Product {
+  id: number;
+  image: string;
+  name: string;
+  price: number;
+}
+
+const ProductDetail = () => {
+  const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
-  const product = products.find((p) => p.id === Number(id));
+  const product: Product | undefined = products.find(
+    (p) => p.id === Number(id)
+  );
 
   if (!product) {
     return <h2>Product not found</h2>;
@@ -21,6 +30,6 @@ function ProductDetail() {
       <button onClick={() => dispatch(addToCart(product))}>Add to cart</button>
     </div>
   );
-}
+};
 
 export default ProductDetail;

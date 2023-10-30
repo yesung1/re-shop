@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProductList from "./components/ProductList";
-import ProductDetail from "./components/ProductDetail";
+import ProductDetail from "./components/ProductDetail.tsx";
 import Cart from "./components/Cart";
 import coupons from "./coupons.json";
 import { Provider } from "react-redux";
@@ -17,7 +17,7 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/" exact element={<ProductList />} />
+            <Route path="/" element={<ProductList />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
           </Routes>

@@ -4,8 +4,9 @@ import App from "./App";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducers";
+import rootReducer from "./reducers/index";
 import ProductDetail from "./components/ProductDetail";
+import React from "react";
 
 const store = configureStore({ reducer: rootReducer }); // Redux store를 생성합니다.
 
