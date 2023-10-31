@@ -69,7 +69,7 @@ function Cart() {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h2">Your Shopping Cart</Typography>
+      <Typography variant="h2">장바구니</Typography>
       {cartItems.map((item) => (
         <Card key={item.id} className={classes.card}>
           <CardMedia

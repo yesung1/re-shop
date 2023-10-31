@@ -6,6 +6,7 @@ import Cart from "./components/Cart.tsx";
 import coupons from "./coupons.json";
 import { Provider } from "react-redux";
 import store from "./store";
+import MainPage from "./components/MainPage.tsx";
 
 function App() {
   useEffect(() => {
@@ -17,7 +18,8 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/" element={<ProductList />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/list" element={<ProductList />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
           </Routes>
