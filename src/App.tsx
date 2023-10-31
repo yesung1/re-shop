@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProductList from "./components/ProductList.tsx";
 import ProductDetail from "./components/ProductDetail.tsx";
-import Cart from "./components/Cart";
+import Cart from "./components/Cart.tsx";
 import coupons from "./coupons.json";
 import { Provider } from "react-redux";
 import store from "./store";
