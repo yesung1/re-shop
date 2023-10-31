@@ -2,13 +2,25 @@ import {
   ADD_TO_CART,
   CHANGE_QUANTITY,
   REMOVE_FROM_CART,
-} from "../actions/cartActions";
+} from "../actions/cartActions.tsx";
 
-const initialState = {
+interface CartItem {
+  id: string;
+  quantity: number;
+}
+
+interface CartState {
+  cartItems: CartItem[];
+}
+
+const initialState: CartState = {
   cartItems: [],
 };
 
-const cartReducer = (state = initialState, action) => {
+const cartReducer = (
+  state: CartState = initialState,
+  action: { type: string; payload: { id: string; newQuantity: number } }
+): CartState => {
   switch (action.type) {
     case ADD_TO_CART: {
       const product = action.payload;

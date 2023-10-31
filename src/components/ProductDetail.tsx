@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../actions/cartActions";
+import { addToCart } from "../actions/cartActions.tsx";
 import products from "../products.json"; // 상품 목록 가져오기
 
 interface Product {

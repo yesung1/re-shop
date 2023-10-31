@@ -11,7 +11,7 @@ import {
   CardActions,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { removeFromCart, changeQuantity } from "../actions/cartActions";
+import { removeFromCart, changeQuantity } from "../actions/cartActions.tsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
