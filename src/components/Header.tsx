@@ -18,6 +18,12 @@ const Header: React.FC = () => {
         <Button color="inherit" component={RouterLink} to="/cart">
           cart
         </Button>
+        <Button color="inherit" component={RouterLink} to="/login">
+          login
+        </Button>
+        <Button color="inherit" component={RouterLink} to="/sign">
+          sign
+        </Button>
       </Toolbar>
     </AppBar>
   );
