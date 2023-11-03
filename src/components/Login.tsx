@@ -1,8 +1,9 @@
-// src/components/Login.tsx
 import React, { useState } from "react";
 import { Button, TextField, Grid, Typography } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase.tsx";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -12,23 +13,14 @@ function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // 로그인 로직: 입력한 이메일과 비밀번호가 로컬 스토리지에 저장된 값과 일치하는지 확인합니다.
-    const storedEmail = localStorage.getItem("email");
-    const storedPassword = localStorage.getItem("password");
-
-    if (
-      formData.email === storedEmail &&
-      formData.password === storedPassword
-    ) {
-      // 로그인 성공: 성공 메시지를 표시하고, 사용자를 메인 페이지로 리다이렉트합니다.
+    try {
+      await signInWithEmailAndPassword(auth, formData.email, formData.password);
       toast.success("로그인에 성공하였습니다!");
       navigate("/");
-    } else {
-      // 로그인 실패: 오류 메시지를 표시합니다.
-      toast.error("이메일 또는 비밀번호가 잘못되었습니다.");
+    } catch (error) {
+      toast.error("로그인에 실패하였습니다. 다시 시도해주세요.");
     }
   };
 
