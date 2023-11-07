@@ -86,7 +86,7 @@ function Cart() {
               inputProps={{ min: 1 }}
               value={item.quantity}
               onChange={(e) =>
-                dispatch(changeQuantity(item.id, e.target.value))
+                dispatch(changeQuantity(item.id, parseInt(e.target.value, 10)))
               }
               label="Quantity"
               variant="outlined"
